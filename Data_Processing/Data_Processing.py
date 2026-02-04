@@ -1,3 +1,4 @@
+import math
 import pandas as pd
 import numpy as np
 import re
@@ -23,9 +24,8 @@ def preprocess_data(file_path):
         trust = (row.iloc[6] - 1) / 8
 
         for col in scenario_cols:
-            raw_val = str(row[col])[:40]
-            woa_val = parse_woa(row[col])
-            if woa_val is None:
+            P_human = parse_woa(row[col])
+            if P_human is None:
                 continue
 
             col_index = df.columns.get_loc(col)
@@ -50,8 +50,8 @@ def preprocess_data(file_path):
 
             long_data.append({
                 'Age': row.iloc[3], 'Gender': row.iloc[4], 'AI_Exp': ai_exp,
-                'Source': woa_val, 'Risk': risk, 'Subj': subj,
-                'Trust': trust_final, 'Conflict': 1.0, 'WOA': woa_val,
+                'Source': P_human, 'Risk': risk, 'Subj': subj,
+                'Trust': trust_final, 'Conflict':math.random(0.05,0.95), 'WOA': P_human,
                 'Risk_Label': 'Thấp' if risk == 0 else ('Vừa' if risk == 0.5 else 'Cao'),
                 'Subj_Label': 'Khách quan' if subj == 0 else 'Chủ quan'
             })
