@@ -13,7 +13,7 @@ Dep. Variable:             Trust_Norm   R-squared:                       0.137
 Model:                            OLS   Adj. R-squared:                  0.128
 Method:                 Least Squares   F-statistic:                     15.88
 Date:                Sat, 21 Feb 2026   Prob (F-statistic):           5.49e-17
-Time:                        15:36:31   Log-Likelihood:                 87.252
+Time:                        16:12:56   Log-Likelihood:                 87.252
 No. Observations:                 609   AIC:                            -160.5
 Df Residuals:                     602   BIC:                            -129.6
 Df Model:                           6                                         
@@ -61,7 +61,7 @@ Dep. Variable:                    WOA   No. Observations:                  609
 Model:                          Logit   Df Residuals:                      601
 Method:                           MLE   Df Model:                            7
 Date:                Sat, 21 Feb 2026   Pseudo R-squ.:                 0.02580
-Time:                        15:36:31   Log-Likelihood:                -411.00
+Time:                        16:12:56   Log-Likelihood:                -411.00
 converged:                       True   LL-Null:                       -421.89
 Covariance Type:            nonrobust   LLR p-value:                  0.002780
 ==============================================================================
