@@ -1,63 +1,143 @@
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-
-def visualize_data(df):
-    sns.set_theme(style="whitegrid")
-    order = ['Thấp', 'Vừa', 'Cao']
-
-    #  WOA theo Ngữ cảnh
-    plt.figure(figsize=(10, 6))
-    sns.barplot(data=df, x='Risk_Label', y='WOA', hue='Subj_Label', order=order, palette='coolwarm')
-    plt.title('Tỷ lệ chọn Con người theo Ngữ cảnh', fontweight='bold')
-    plt.savefig('Chart_1_WOA_Summary.png')
+import os
 
 
-    #  Literacy General
-    plt.figure(figsize=(8, 5)); sns.regplot(data=df, x='Literacy', y=(1-df['WOA']), x_estimator=np.mean, logistic=True)
-    plt.title(' Am hiểu AI và Xu hướng chọn AI', fontweight='bold');
-    plt.savefig('Chart_2_Literacy_General.png')
+def visualize_results(df):
+    print("--- [3/3] Đang vẽ biểu đồ kiểm nghiệm các giả thuyết ---")
 
-    #Heatmap
-    pivot = df.pivot_table(index='Subj_Label', columns='Risk_Label', values='WOA', aggfunc='mean').reindex(columns=order)
-    plt.figure(figsize=(8, 5)); sns.heatmap(pivot, annot=True, cmap='YlGnBu');
-    plt.title(' Bản đồ nhiệt ưu tiên Con người', fontweight='bold');
-    plt.savefig('Chart_3_Heatmap.png')
+    # Cấu hình giao diện chuẩn học thuật
+    sns.set_theme(style="whitegrid", font_scale=1.1)
 
-    #  Groups Proportion
-    df['Group'] = df['Risk_Label'] + " - " + df['Subj_Label']
-    plt.figure(figsize=(12, 6))
-    sns.barplot(data=df, x='Group', y='WOA', hue='Group', palette='viridis', legend=False)
-    plt.xticks(rotation=15)
+    # Chuẩn bị dữ liệu vẽ biểu đồ
+    df['Risk_Label'] = df['Risk'].map({0.0: 'Rủi ro Thấp', 1.0: 'Rủi ro Cao'})
+    df['Subj_Label'] = df['Subj'].map({0.0: 'Khách quan', 1.0: 'Chủ quan'})
+    df['Info_Label'] = df['Info'].map({0.0: 'Tải thấp', 1.0: 'Tải cao'})
+
+    # Chia nhóm Literacy (Am hiểu AI) thông qua trung vị
+    median_lit = df['Lit_Norm'].median()
+    df['Lit_Group'] = df['Lit_Norm'].apply(lambda x: 'Am hiểu Cao' if x > median_lit else 'Am hiểu Thấp')
+
+    # Chia nhóm D_total (Cường độ Mâu thuẫn)
+    median_d = df['D_total'].median()
+    df['Conflict_Level'] = df['D_total'].apply(lambda x: 'Mâu thuẫn Cao' if x > median_d else 'Mâu thuẫn Thấp')
+
+    # ==========================================
+    # CHART 1: H1 (D_total -> WOA)
+    plt.figure(figsize=(6, 6))
+    ax1 = sns.barplot(data=df, x='Conflict_Level', y='WOA', hue='Conflict_Level', palette='pastel', legend=False,
+                      errorbar=None)
+    plt.title('H1: Tác động của Cường độ Mâu thuẫn lên Hành vi', fontweight='bold')
+    plt.ylabel('Tỷ lệ chọn Con người (P_human)')
+    plt.xlabel('Mức độ Mâu thuẫn (D_total)')
+    plt.ylim(0, 1.1)  # Cố định trục Y
+    for i in ax1.containers: ax1.bar_label(i, fmt='%.2f', padding=3)
     plt.tight_layout()
-    plt.title(' Tỷ lệ chọn theo 6 nhóm kết hợp', fontweight='bold');
-    plt.savefig('Chart_4_Groups_Proportion.png')
+    plt.savefig('Chart_H1_Conflict.png', dpi=300)  # dpi=300 xuất ảnh siêu nét
+    plt.close()
 
-    # Nghịch lý Rủi ro (H1 & H5)
-    plt.figure(figsize=(10, 6))
-    sns.pointplot(data=df, x='Risk_Label', y='WOA', hue='Subj_Label', order=order, palette='dark',linestyles=["-", "--"])
-    plt.title('Nghịch lý Rủi ro và Vùng an toàn', fontweight='bold')
-    plt.savefig('Chart_5_Risk_Paradox.png')
+    # CHART 2: H2 (Trust -> WOA)
+    plt.figure(figsize=(8, 6))
+    sns.regplot(data=df, x='Trust_Norm', y='WOA', logistic=True, scatter_kws={'alpha': 0.3}, line_kws={'color': 'red'})
+    plt.title('H2: Tác động của Niềm tin (Trust) lên Hành vi lựa chọn', fontweight='bold')
+    plt.ylabel('Xác suất chọn Con người (WOA)')
+    plt.xlabel('Niềm tin vào AI (Trust_Norm)')
+    plt.ylim(-0.05, 1.05)
+    plt.tight_layout()
+    plt.savefig('Chart_H2_Trust_Behavior.png', dpi=300)
+    plt.close()
 
-    # Trust Mechanism (H2)
-    plt.figure(figsize=(8, 6)); sns.regplot(data=df, x='Trust_Base', y='WOA', logistic=True, line_kws={'color':'red'})
-    plt.title(' Niềm tin dẫn dắt hành vi lựa chọn (H2)', fontweight='bold');
-    plt.savefig('Chart_6_Trust_Mechanism.png')
+    # CHART 3: H3 (Risk x Subj -> WOA)
+    plt.figure(figsize=(8, 6))
+    ax3 = sns.barplot(data=df, x='Risk_Label', y='WOA', hue='Subj_Label', palette='Set2', errorbar=None)
+    plt.title('H3: Rủi ro khuếch đại tính Chủ quan (Risk x Subj)', fontweight='bold')
+    plt.ylabel('Tỷ lệ chọn Con người (P_human)')
+    plt.xlabel('Mức độ Rủi ro')
+    plt.ylim(0, 1.1)
+    plt.axhline(0.5, linestyle='--', color='gray', alpha=0.5)
+    for i in ax3.containers: ax3.bar_label(i, fmt='%.2f', padding=3)
+    plt.legend(title='Lĩnh vực vấn đề', loc='upper right')
+    plt.tight_layout()
+    plt.savefig('Chart_H3_Risk_Subj_WOA.png', dpi=300)
+    plt.close()
 
-    # Literacy Moderation (H5 Interaction)
-    plt.figure(figsize=(10, 6)); df['Lit_Group'] = pd.cut(df['Literacy'], bins=[0, 3, 5], labels=['Thấp', 'Cao'])
-    sns.pointplot(data=df, x='Risk_Label', y='WOA', hue='Lit_Group', order=order)
-    plt.title(' Am hiểu AI điều tiết Rủi ro (H5)', fontweight='bold');
-    plt.savefig('Chart_7_H5_Interaction.png')
+    # CHART 4: H4 (Subj -> Trust)
+    plt.figure(figsize=(6, 6))
+    ax4 = sns.barplot(data=df, x='Subj_Label', y='Trust_Norm', hue='Subj_Label', palette='Set3', legend=False,
+                      errorbar=None)
+    plt.title('H4 (a,b): Tính chủ quan tác động Niềm tin', fontweight='bold')
+    plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
+    plt.xlabel('Lĩnh vực vấn đề')
+    plt.ylim(0, 1.1)
+    for i in ax4.containers: ax4.bar_label(i, fmt='%.2f', padding=3)
+    plt.tight_layout()
+    plt.savefig('Chart_H4_Subj_Trust.png', dpi=300)
+    plt.close()
 
-    # Conflict Severity (D_Total)
-    plt.figure(figsize=(10, 6)); sns.regplot(data=df, x='D_Total', y='WOA', logistic=True, color='purple')
-    plt.title(' Mức độ mâu thuẫn (D_Total) và Lựa chọn', fontweight='bold');
-    plt.savefig('Chart_8_Conflict_Severity.png')
+    # CHART 5: H5 (Risk x Lit -> Trust)
+    plt.figure(figsize=(8, 6))
+    sns.pointplot(data=df, x='Risk_Label', y='Trust_Norm', hue='Lit_Group', dodge=True, palette='Blues',
+                  markers=['o', 's'])
+    plt.title('H5 (a,b): Am hiểu AI điều tiết Rủi ro lên Niềm tin', fontweight='bold')
+    plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
+    plt.xlabel('Mức độ Rủi ro')
+    plt.ylim(0, 1.05)
+    plt.legend(title='Mức độ Am hiểu AI (Literacy)')
+    plt.tight_layout()
+    plt.savefig('Chart_H5_Risk_Lit_Trust.png', dpi=300)
+    plt.close()
 
-    # Demographics
-    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
-    sns.barplot(data=df, x='Gender', y='WOA', hue='Gender', ax=axes[0], palette='Pastel1', legend=False)
-    sns.lineplot(data=df, x='Age', y='WOA', ax=axes[1], marker='o')
-    plt.savefig('Chart_9_Demographics.png')
+    # CHART 6: H6 (Info -> WOA)
+    plt.figure(figsize=(6, 6))
+    ax6 = sns.barplot(data=df, x='Info_Label', y='WOA', hue='Info_Label', palette='viridis', legend=False,
+                      errorbar=None)
+    plt.title('H6: Tác động của Tải lượng thông tin (Info Load)', fontweight='bold')
+    plt.ylabel('Tỷ lệ chọn Con người (P_human)')
+    plt.xlabel('Tải lượng thông tin')
+    plt.ylim(0, 1.1)
+    for i in ax6.containers: ax6.bar_label(i, fmt='%.2f', padding=3)
+    plt.tight_layout()
+    plt.savefig('Chart_H6_InfoLoad.png', dpi=300)
+    plt.close()
+
+    # CHART 7: H7 (Subj x Lit -> Trust)
+    plt.figure(figsize=(8, 6))
+    sns.pointplot(data=df, x='Subj_Label', y='Trust_Norm', hue='Lit_Group', dodge=True, palette='Oranges',
+                  markers=['^', 'v'])
+    plt.title('H7: Am hiểu AI điều tiết Tính chủ quan lên Niềm tin', fontweight='bold')
+    plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
+    plt.xlabel('Lĩnh vực vấn đề')
+    plt.ylim(0, 1.05)
+    plt.legend(title='Mức độ Am hiểu AI (Literacy)')
+    plt.tight_layout()
+    plt.savefig('Chart_H7_Subj_Lit_Trust.png', dpi=300)
+    plt.close()
+
+    # CHART 8: H8 (Risk x Info -> WOA)
+    plt.figure(figsize=(8, 6))
+    ax8 = sns.barplot(data=df, x='Risk_Label', y='WOA', hue='Info_Label', palette='magma', errorbar=None)
+    plt.title('H8: Tải thông tin suy yếu Rủi ro (Risk x Info)', fontweight='bold')
+    plt.ylabel('Tỷ lệ chọn Con người (P_human)')
+    plt.xlabel('Mức độ Rủi ro')
+    plt.ylim(0, 1.1)
+    for i in ax8.containers: ax8.bar_label(i, fmt='%.2f', padding=3)
+    plt.legend(title='Tải lượng thông tin', loc='upper right')
+    plt.tight_layout()
+    plt.savefig('Chart_H8_Risk_Info_WOA.png', dpi=300)
+    plt.close()
+
+    # CHART 9: H10 (Risk x Subj -> Trust)
+    plt.figure(figsize=(8, 6))
+    ax9 = sns.barplot(data=df, x='Risk_Label', y='Trust_Norm', hue='Subj_Label', palette='coolwarm', errorbar=None)
+    plt.title('H10: Rủi ro điều tiết Tính chủ quan lên Niềm tin', fontweight='bold')
+    plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
+    plt.xlabel('Mức độ Rủi ro')
+    plt.ylim(0, 1.1)
+    for i in ax9.containers: ax9.bar_label(i, fmt='%.2f', padding=3)
+    plt.legend(title='Lĩnh vực vấn đề', loc='upper right')
+    plt.tight_layout()
+    plt.savefig('Chart_H10_Risk_Subj_Trust.png', dpi=300)
+    plt.close()
+
+    print("-> Đã tạo và lưu thành công 9 Biểu đồ KHÔNG CẢNH BÁO, CHỈN CHU, SẮC NÉT!")
