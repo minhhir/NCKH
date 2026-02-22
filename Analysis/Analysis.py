@@ -40,7 +40,7 @@ def run_analysis(df):
         t_b = model_trust.params
         t_p = model_trust.pvalues
 
-        # H4a & H4b: Tính chủ quan điều tiết niềm tin
+        # H4a & H4b
         b_subj = t_b.get('Subj', 0);
         p_subj = t_p.get('Subj', 1)
         results.append(f"[H4a, H4b] Lĩnh vực tác động lên Niềm tin:")
@@ -53,27 +53,27 @@ def run_analysis(df):
         else:
             results.append("=> KHÔNG ỦNG HỘ H4a & H4b (p > 0.05).\n")
 
-        # H5a & H5b: Am hiểu AI điều tiết Rủi ro lên Niềm tin
+        # H5a & H5b (Tác động lên Niềm tin)
         b_rl = t_b.get('Risk:Lit_Norm', 0);
         p_rl = t_p.get('Risk:Lit_Norm', 1)
-        results.append(f"[H5a, H5b] Am hiểu AI điều tiết Rủi ro và Niềm tin (Risk x Lit):")
+        results.append(f"[H5a, H5b] Am hiểu AI điều tiết Rủi ro lên Niềm tin (Risk x Lit):")
         results.append(f"- β_Risk:Lit = {b_rl:.3f}, p = {p_rl:.3f}")
         if p_rl < 0.05:
             results.append("=> ỦNG HỘ H5a & H5b: Am hiểu AI bẻ lái cách tin tưởng khi gặp rủi ro.\n")
         else:
-            results.append("=> KHÔNG ỦNG HỘ H5a & H5b.\n")
+            results.append("=> KHÔNG ỦNG HỘ H5a & H5b (trên khía cạnh Niềm tin).\n")
 
-        # H7: Am hiểu AI điều tiết Tính chủ quan lên Niềm tin
+        # H7
         b_sl = t_b.get('Subj:Lit_Norm', 0);
         p_sl = t_p.get('Subj:Lit_Norm', 1)
-        results.append(f"[H7] Am hiểu AI điều tiết Tính chủ quan và Niềm tin (Subj x Lit):")
+        results.append(f"[H7] Am hiểu AI điều tiết Tính chủ quan lên Niềm tin (Subj x Lit):")
         results.append(f"- β_Subj:Lit = {b_sl:.3f}, p = {p_sl:.3f}")
         if p_sl < 0.05 and b_sl < 0:
             results.append("=> ỦNG HỘ H7: Càng am hiểu AI càng ít tin AI trong tác vụ Chủ quan.\n")
         else:
             results.append("=> KHÔNG ỦNG HỘ H7.\n")
 
-        # H10: Rủi ro điều tiết Tính chủ quan lên Niềm tin
+        # H10
         b_rs_t = t_b.get('Risk:Subj', 0);
         p_rs_t = t_p.get('Risk:Subj', 1)
         results.append(f"[H10] Rủi ro khuếch đại tác động Chủ quan lên Niềm tin (Risk x Subj):")
@@ -87,9 +87,10 @@ def run_analysis(df):
         results.append(f"Lỗi mô hình OLS: {e}\n")
 
     # =========================================================
-    # MÔ HÌNH 2: LOGIT DỰ BÁO HÀNH VI (H2, H3, H6, H8, H9)
+    # MÔ HÌNH 2: LOGIT DỰ BÁO HÀNH VI (H2, H3, H5b mở rộng, H6, H8)
     # =========================================================
-    formula_woa = "WOA ~ Risk + Subj + Info + Lit_Norm + Trust_Norm + Risk:Subj + Risk:Info"
+    # Bổ sung Risk:Lit_Norm để kiểm định hiệu ứng "trú ẩn an toàn" lên hành vi thực tế
+    formula_woa = "WOA ~ Risk + Subj + Info + Lit_Norm + Trust_Norm + Risk:Lit_Norm + Risk:Subj + Risk:Info"
     try:
         model_woa = smf.logit(formula_woa, data=df_conflict).fit(disp=0)
         results.append("2. MÔ HÌNH LOGIT (DV: WOA - Chọn Con người)")
@@ -98,7 +99,7 @@ def run_analysis(df):
         w_b = model_woa.params
         w_p = model_woa.pvalues
 
-        # H2: Trust -> WOA
+        # H2
         b_trust = w_b.get('Trust_Norm', 0);
         p_trust = w_p.get('Trust_Norm', 1)
         results.append(f"[H2] Cơ chế Niềm tin (Trust) quyết định Hành vi:")
@@ -108,7 +109,7 @@ def run_analysis(df):
         else:
             results.append("=> KHÔNG ỦNG HỘ H2.\n")
 
-        # H3: Risk * Subj -> WOA
+        # H3
         b_rs_w = w_b.get('Risk:Subj', 0);
         p_rs_w = w_p.get('Risk:Subj', 1)
         results.append(f"[H3] Rủi ro khuếch đại mâu thuẫn Chủ quan (Risk x Subj):")
@@ -118,7 +119,17 @@ def run_analysis(df):
         else:
             results.append("=> KHÔNG ỦNG HỘ H3.\n")
 
-        # H6: Info -> WOA
+        # H5b (Mở rộng trên hành vi)
+        b_rl_w = w_b.get('Risk:Lit_Norm', 0);
+        p_rl_w = w_p.get('Risk:Lit_Norm', 1)
+        results.append(f"[H5 bổ sung] Am hiểu AI điều tiết Rủi ro lên Hành vi (Risk x Lit):")
+        results.append(f"- β_Risk:Lit = {b_rl_w:.3f}, p = {p_rl_w:.3f}")
+        if p_rl_w < 0.05:
+            results.append("=> ỦNG HỘ: Kiến thức AI trực tiếp thay đổi hành vi chọn lựa khi gặp rủi ro.\n")
+        else:
+            results.append("=> Tương tác này chỉ ảnh hưởng đến Niềm tin, không tác động trực tiếp lên Hành vi.\n")
+
+        # H6
         b_info = w_b.get('Info', 0);
         p_info = w_p.get('Info', 1)
         results.append(f"[H6] Tải lượng thông tin (Info Load) tác động lên Hành vi:")
@@ -128,7 +139,7 @@ def run_analysis(df):
         else:
             results.append("=> KHÔNG ỦNG HỘ H6.\n")
 
-        # H8: Risk * Info -> WOA
+        # H8
         b_ri = w_b.get('Risk:Info', 0);
         p_ri = w_p.get('Risk:Info', 1)
         results.append(f"[H8] Tải lượng thông tin suy yếu Rủi ro (Risk x Info):")
@@ -138,15 +149,25 @@ def run_analysis(df):
         else:
             results.append("=> KHÔNG ỦNG HỘ H8.\n")
 
-        # H9: Mediator (Subj -> Trust -> WOA)
-        results.append(f"[H9] Niềm tin là biến trung gian (Mediation):")
+        # =========================================================
+        # KIỂM ĐỊNH H9: MEDIATION TỪNG BƯỚC (Baron & Kenny)
+        # =========================================================
+        results.append(f"[H9] Niềm tin là biến trung gian (Subj -> Trust -> WOA):")
         try:
+            # Chạy mô hình phụ không có Trust để lấy tác động tổng (Total Effect)
+            model_woa_no_trust = smf.logit("WOA ~ Risk + Subj + Info + Lit_Norm", data=df_conflict).fit(disp=0)
+            p_subj_total = model_woa_no_trust.pvalues.get('Subj', 1)
+
+            results.append(f"- Bước 1 (IV -> DV): Tác động tổng của Subj lên WOA (p = {p_subj_total:.3f})")
+            results.append(f"- Bước 2 (IV -> Med): Tác động của Subj lên Trust (p = {p_subj:.3f})")
+            results.append(f"- Bước 3 (Med -> DV): Tác động của Trust lên WOA (p = {p_trust:.3f})")
+
             if p_subj < 0.05 and p_trust < 0.05:
-                results.append("=> ỦNG HỘ H9: Subj làm thay đổi Trust, Trust định hướng WOA.\n")
+                results.append("=> ỦNG HỘ H9: Chuỗi trung gian Subj -> Trust -> WOA hợp lệ.\n")
             else:
                 results.append("=> KHÔNG ỦNG HỘ H9: Chuỗi trung gian bị đứt gãy.\n")
-        except:
-            pass
+        except Exception as e:
+            results.append(f"Lỗi kiểm định H9: {e}\n")
 
     except Exception as e:
         results.append(f"Lỗi mô hình Logit: {e}\n")

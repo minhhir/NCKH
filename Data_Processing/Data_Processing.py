@@ -26,7 +26,6 @@ def preprocess_data(csv_file):
     print("--- [1/3] Đang tiền xử lý (Đồng bộ D_total và AC_Label) ---")
     ac_dict = {}
 
-    # Ưu tiên đọc từ file CSV map từ trước nếu Excel lỗi
     meta_path = METADATA_FILE
     if not os.path.exists(meta_path) and os.path.exists(METADATA_FILE + " - Sheet1.csv"):
         meta_path = METADATA_FILE + " - Sheet1.csv"
@@ -62,7 +61,6 @@ def preprocess_data(csv_file):
             lit_raw = int(match.group(1)) if match else 3
         except:
             lit_raw = 3
-        # Chuẩn hóa về [0, 1]
         lit_norm = (lit_raw - 1) / 4.0
 
         try:

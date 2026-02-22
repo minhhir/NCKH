@@ -13,7 +13,7 @@ Dep. Variable:             Trust_Norm   R-squared:                       0.137
 Model:                            OLS   Adj. R-squared:                  0.130
 Method:                 Least Squares   F-statistic:                     19.32
 Date:                Sun, 22 Feb 2026   Prob (F-statistic):           5.69e-21
-Time:                        15:21:21   Log-Likelihood:                 154.77
+Time:                        15:30:29   Log-Likelihood:                 154.77
 No. Observations:                 735   AIC:                            -295.5
 Df Residuals:                     728   BIC:                            -263.3
 Df Model:                           6                                         
@@ -42,11 +42,11 @@ Notes:
 - β_Subj = -0.008, p = 0.849
 => KHÔNG ỦNG HỘ H4a & H4b (p > 0.05).
 
-[H5a, H5b] Am hiểu AI điều tiết Rủi ro và Niềm tin (Risk x Lit):
+[H5a, H5b] Am hiểu AI điều tiết Rủi ro lên Niềm tin (Risk x Lit):
 - β_Risk:Lit = 0.021, p = 0.771
-=> KHÔNG ỦNG HỘ H5a & H5b.
+=> KHÔNG ỦNG HỘ H5a & H5b (trên khía cạnh Niềm tin).
 
-[H7] Am hiểu AI điều tiết Tính chủ quan và Niềm tin (Subj x Lit):
+[H7] Am hiểu AI điều tiết Tính chủ quan lên Niềm tin (Subj x Lit):
 - β_Subj:Lit = 0.021, p = 0.771
 => KHÔNG ỦNG HỘ H7.
 
@@ -58,40 +58,48 @@ Notes:
                            Logit Regression Results                           
 ==============================================================================
 Dep. Variable:                    WOA   No. Observations:                  735
-Model:                          Logit   Df Residuals:                      727
-Method:                           MLE   Df Model:                            7
-Date:                Sun, 22 Feb 2026   Pseudo R-squ.:                 0.02817
-Time:                        15:21:21   Log-Likelihood:                -491.77
+Model:                          Logit   Df Residuals:                      726
+Method:                           MLE   Df Model:                            8
+Date:                Sun, 22 Feb 2026   Pseudo R-squ.:                 0.02876
+Time:                        15:30:29   Log-Likelihood:                -491.47
 converged:                       True   LL-Null:                       -506.03
-Covariance Type:            nonrobust   LLR p-value:                 0.0001774
-==============================================================================
-                 coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-Intercept      1.4384      0.391      3.677      0.000       0.672       2.205
-Risk          -1.0279      0.271     -3.786      0.000      -1.560      -0.496
-Subj          -0.6923      0.218     -3.179      0.001      -1.119      -0.265
-Info          -0.4328      0.218     -1.987      0.047      -0.860      -0.006
-Lit_Norm       0.2027      0.404      0.501      0.616      -0.590       0.995
-Trust_Norm    -1.1803      0.389     -3.032      0.002      -1.943      -0.417
-Risk:Subj      0.8034      0.303      2.650      0.008       0.209       1.398
-Risk:Info      0.8087      0.303      2.667      0.008       0.214       1.403
-==============================================================================
+Covariance Type:            nonrobust   LLR p-value:                 0.0003035
+=================================================================================
+                    coef    std err          z      P>|z|      [0.025      0.975]
+---------------------------------------------------------------------------------
+Intercept         1.2787      0.441      2.899      0.004       0.414       2.143
+Risk             -0.7229      0.479     -1.509      0.131      -1.662       0.216
+Subj             -0.6911      0.218     -3.174      0.002      -1.118      -0.264
+Info             -0.4318      0.218     -1.983      0.047      -0.859      -0.005
+Lit_Norm          0.4986      0.557      0.895      0.371      -0.594       1.591
+Trust_Norm       -1.1777      0.389     -3.024      0.002      -1.941      -0.414
+Risk:Lit_Norm    -0.5779      0.750     -0.771      0.441      -2.048       0.892
+Risk:Subj         0.8025      0.303      2.646      0.008       0.208       1.397
+Risk:Info         0.8086      0.303      2.665      0.008       0.214       1.403
+=================================================================================
 
 [H2] Cơ chế Niềm tin (Trust) quyết định Hành vi:
-- β_Trust = -1.180, p = 0.002
+- β_Trust = -1.178, p = 0.002
 => ỦNG HỘ H2: Tin AI tăng -> Tỷ lệ chọn Con người giảm.
 
 [H3] Rủi ro khuếch đại mâu thuẫn Chủ quan (Risk x Subj):
-- β_Risk:Subj = 0.803, p = 0.008
+- β_Risk:Subj = 0.802, p = 0.008
 => ỦNG HỘ H3: Rủi ro cao + Chủ quan -> Càng bỏ chạy về phía Con người.
 
+[H5 bổ sung] Am hiểu AI điều tiết Rủi ro lên Hành vi (Risk x Lit):
+- β_Risk:Lit = -0.578, p = 0.441
+=> Tương tác này chỉ ảnh hưởng đến Niềm tin, không tác động trực tiếp lên Hành vi.
+
 [H6] Tải lượng thông tin (Info Load) tác động lên Hành vi:
-- β_Info = -0.433, p = 0.047
+- β_Info = -0.432, p = 0.047
 => ỦNG HỘ H6: Quá tải thông tin -> Giao phó cho AI (Giảm chọn người).
 
 [H8] Tải lượng thông tin suy yếu Rủi ro (Risk x Info):
 - β_Risk:Info = 0.809, p = 0.008
 => KHÔNG ỦNG HỘ H8.
 
-[H9] Niềm tin là biến trung gian (Mediation):
+[H9] Niềm tin là biến trung gian (Subj -> Trust -> WOA):
+- Bước 1 (IV -> DV): Tác động tổng của Subj lên WOA (p = 0.073)
+- Bước 2 (IV -> Med): Tác động của Subj lên Trust (p = 0.849)
+- Bước 3 (Med -> DV): Tác động của Trust lên WOA (p = 0.002)
 => KHÔNG ỦNG HỘ H9: Chuỗi trung gian bị đứt gãy.

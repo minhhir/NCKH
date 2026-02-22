@@ -3,7 +3,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-
 def visualize_results(df):
     print("--- [3/3] Đang vẽ biểu đồ kiểm nghiệm các giả thuyết ---")
 
@@ -23,18 +22,16 @@ def visualize_results(df):
     median_d = df['D_total'].median()
     df['Conflict_Level'] = df['D_total'].apply(lambda x: 'Mâu thuẫn Cao' if x > median_d else 'Mâu thuẫn Thấp')
 
-    # ==========================================
     # CHART 1: H1 (D_total -> WOA)
     plt.figure(figsize=(6, 6))
-    ax1 = sns.barplot(data=df, x='Conflict_Level', y='WOA', hue='Conflict_Level', palette='pastel', legend=False,
-                      errorbar=None)
+    ax1 = sns.barplot(data=df, x='Conflict_Level', y='WOA', hue='Conflict_Level', palette='pastel', legend=False, errorbar=None)
     plt.title('H1: Tác động của Cường độ Mâu thuẫn lên Hành vi', fontweight='bold')
     plt.ylabel('Tỷ lệ chọn Con người (P_human)')
     plt.xlabel('Mức độ Mâu thuẫn (D_total)')
-    plt.ylim(0, 1.1)  # Cố định trục Y
+    plt.ylim(0, 1.1)
     for i in ax1.containers: ax1.bar_label(i, fmt='%.2f', padding=3)
     plt.tight_layout()
-    plt.savefig('Chart_H1_Conflict.png', dpi=300)  # dpi=300 xuất ảnh siêu nét
+    plt.savefig('Chart_H1_Conflict.png', dpi=300)
     plt.close()
 
     # CHART 2: H2 (Trust -> WOA)
@@ -64,8 +61,7 @@ def visualize_results(df):
 
     # CHART 4: H4 (Subj -> Trust)
     plt.figure(figsize=(6, 6))
-    ax4 = sns.barplot(data=df, x='Subj_Label', y='Trust_Norm', hue='Subj_Label', palette='Set3', legend=False,
-                      errorbar=None)
+    ax4 = sns.barplot(data=df, x='Subj_Label', y='Trust_Norm', hue='Subj_Label', palette='Set3', legend=False, errorbar=None)
     plt.title('H4 (a,b): Tính chủ quan tác động Niềm tin', fontweight='bold')
     plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
     plt.xlabel('Lĩnh vực vấn đề')
@@ -77,8 +73,7 @@ def visualize_results(df):
 
     # CHART 5: H5 (Risk x Lit -> Trust)
     plt.figure(figsize=(8, 6))
-    sns.pointplot(data=df, x='Risk_Label', y='Trust_Norm', hue='Lit_Group', dodge=True, palette='Blues',
-                  markers=['o', 's'])
+    sns.pointplot(data=df, x='Risk_Label', y='Trust_Norm', hue='Lit_Group', dodge=True, palette='Blues', markers=['o', 's'])
     plt.title('H5 (a,b): Am hiểu AI điều tiết Rủi ro lên Niềm tin', fontweight='bold')
     plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
     plt.xlabel('Mức độ Rủi ro')
@@ -90,8 +85,7 @@ def visualize_results(df):
 
     # CHART 6: H6 (Info -> WOA)
     plt.figure(figsize=(6, 6))
-    ax6 = sns.barplot(data=df, x='Info_Label', y='WOA', hue='Info_Label', palette='viridis', legend=False,
-                      errorbar=None)
+    ax6 = sns.barplot(data=df, x='Info_Label', y='WOA', hue='Info_Label', palette='viridis', legend=False, errorbar=None)
     plt.title('H6: Tác động của Tải lượng thông tin (Info Load)', fontweight='bold')
     plt.ylabel('Tỷ lệ chọn Con người (P_human)')
     plt.xlabel('Tải lượng thông tin')
@@ -103,8 +97,7 @@ def visualize_results(df):
 
     # CHART 7: H7 (Subj x Lit -> Trust)
     plt.figure(figsize=(8, 6))
-    sns.pointplot(data=df, x='Subj_Label', y='Trust_Norm', hue='Lit_Group', dodge=True, palette='Oranges',
-                  markers=['^', 'v'])
+    sns.pointplot(data=df, x='Subj_Label', y='Trust_Norm', hue='Lit_Group', dodge=True, palette='Oranges', markers=['^', 'v'])
     plt.title('H7: Am hiểu AI điều tiết Tính chủ quan lên Niềm tin', fontweight='bold')
     plt.ylabel('Mức độ Niềm tin vào AI (Trust)')
     plt.xlabel('Lĩnh vực vấn đề')
