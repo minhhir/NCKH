@@ -7,7 +7,6 @@ from tqdm import tqdm
 # --- CẤU HÌNH ---
 INPUT_FILE = "QuestionForm_cleantext.xlsx"
 OUTPUT_FILE = "Ac_Results_Final.xlsx"
-# Sử dụng DeepSeek R1 - Model tư duy tốt nhất phân khúc nhỏ
 MODEL_NAME = "gpt-oss:120b-cloud"
 
 # --- PROMPT (Đã tối ưu cho DeepSeek) ---

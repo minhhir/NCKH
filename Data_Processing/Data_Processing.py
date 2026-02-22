@@ -41,7 +41,7 @@ def preprocess_data(csv_file):
                 d_total_val = float(row.get('D_total', 0.5)) if pd.notna(row.get('D_total')) else 0.5
                 ac_dict[i] = {
                     'AC_Label': float(row.get('AC_Label', 1.0)) if pd.notna(row.get('AC_Label')) else 1.0,
-                    'D_total': round(d_total_val, 10)
+                    'D_total': round(d_total_val, 6)
                 }
         except Exception as e:
             print(f"Lỗi đọc Metadata: {e}")

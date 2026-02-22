@@ -1,7 +1,7 @@
 === BÁO CÁO KIỂM ĐỊNH CHI TIẾT 10 GIẢ THUYẾT (H1 - H10) ===
 
 [H1] Tác động của Mâu thuẫn (D_total) đến Hành vi:
-- Hệ số D_total: β = -0.667, p = 0.063
+- Hệ số D_total: β = -0.790, p = 0.065
 => Kết luận H1: KHÔNG ỦNG HỘ
 
 --- PHÂN TÍCH TRÊN TẬP MÂU THUẪN (N=735) ---
@@ -13,7 +13,7 @@ Dep. Variable:             Trust_Norm   R-squared:                       0.137
 Model:                            OLS   Adj. R-squared:                  0.130
 Method:                 Least Squares   F-statistic:                     19.32
 Date:                Sun, 22 Feb 2026   Prob (F-statistic):           5.69e-21
-Time:                        14:29:02   Log-Likelihood:                 154.77
+Time:                        15:21:21   Log-Likelihood:                 154.77
 No. Observations:                 735   AIC:                            -295.5
 Df Residuals:                     728   BIC:                            -263.3
 Df Model:                           6                                         
@@ -61,7 +61,7 @@ Dep. Variable:                    WOA   No. Observations:                  735
 Model:                          Logit   Df Residuals:                      727
 Method:                           MLE   Df Model:                            7
 Date:                Sun, 22 Feb 2026   Pseudo R-squ.:                 0.02817
-Time:                        14:29:02   Log-Likelihood:                -491.77
+Time:                        15:21:21   Log-Likelihood:                -491.77
 converged:                       True   LL-Null:                       -506.03
 Covariance Type:            nonrobust   LLR p-value:                 0.0001774
 ==============================================================================
