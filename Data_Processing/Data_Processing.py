@@ -38,11 +38,10 @@ def preprocess_data(csv_file):
             else:
                 meta_df = pd.read_excel(meta_path)
             for i, row in meta_df.iterrows():
-                # Lấy trực tiếp D_total và AC_Label, làm tròn 6 chữ số thập phân để đồng bộ
                 d_total_val = float(row.get('D_total', 0.5)) if pd.notna(row.get('D_total')) else 0.5
                 ac_dict[i] = {
                     'AC_Label': float(row.get('AC_Label', 1.0)) if pd.notna(row.get('AC_Label')) else 1.0,
-                    'D_total': round(d_total_val, 6)
+                    'D_total': round(d_total_val, 10)
                 }
         except Exception as e:
             print(f"Lỗi đọc Metadata: {e}")

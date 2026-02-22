@@ -1,96 +1,96 @@
 === BÁO CÁO KIỂM ĐỊNH CHI TIẾT 10 GIẢ THUYẾT (H1 - H10) ===
 
 [H1] Tác động của Mâu thuẫn (D_total) đến Hành vi:
-- Hệ số D_total: β = -0.478, p = 0.264
+- Hệ số D_total: β = -0.667, p = 0.063
 => Kết luận H1: KHÔNG ỦNG HỘ
 
---- PHÂN TÍCH TRÊN TẬP MÂU THUẪN (N=609) ---
+--- PHÂN TÍCH TRÊN TẬP MÂU THUẪN (N=735) ---
 
 1. MÔ HÌNH OLS (DV: Niềm tin - Trust_Norm)
                             OLS Regression Results                            
 ==============================================================================
 Dep. Variable:             Trust_Norm   R-squared:                       0.137
-Model:                            OLS   Adj. R-squared:                  0.128
-Method:                 Least Squares   F-statistic:                     15.88
-Date:                Sat, 21 Feb 2026   Prob (F-statistic):           5.49e-17
-Time:                        16:12:56   Log-Likelihood:                 87.252
-No. Observations:                 609   AIC:                            -160.5
-Df Residuals:                     602   BIC:                            -129.6
+Model:                            OLS   Adj. R-squared:                  0.130
+Method:                 Least Squares   F-statistic:                     19.32
+Date:                Sun, 22 Feb 2026   Prob (F-statistic):           5.69e-21
+Time:                        14:29:02   Log-Likelihood:                 154.77
+No. Observations:                 735   AIC:                            -295.5
+Df Residuals:                     728   BIC:                            -263.3
 Df Model:                           6                                         
 Covariance Type:            nonrobust                                         
 =================================================================================
                     coef    std err          t      P>|t|      [0.025      0.975]
 ---------------------------------------------------------------------------------
-Intercept         0.6517      0.047     13.874      0.000       0.559       0.744
-Risk             -0.0091      0.054     -0.167      0.867      -0.116       0.098
-Subj             -0.0091      0.054     -0.167      0.867      -0.116       0.098
-Lit_Norm          0.4228      0.082      5.154      0.000       0.262       0.584
-Risk:Lit_Norm     0.0253      0.092      0.275      0.783      -0.156       0.206
-Subj:Lit_Norm     0.0253      0.092      0.275      0.783      -0.156       0.206
-Risk:Subj        -0.0042      0.034     -0.123      0.902      -0.071       0.063
+Intercept         0.6978      0.037     18.862      0.000       0.625       0.770
+Risk             -0.0083      0.043     -0.191      0.849      -0.094       0.077
+Subj             -0.0083      0.043     -0.191      0.849      -0.094       0.077
+Lit_Norm          0.3666      0.064      5.742      0.000       0.241       0.492
+Risk:Lit_Norm     0.0210      0.072      0.291      0.771      -0.121       0.163
+Subj:Lit_Norm     0.0210      0.072      0.291      0.771      -0.121       0.163
+Risk:Subj        -0.0028      0.029     -0.095      0.924      -0.060       0.054
 ==============================================================================
-Omnibus:                      179.351   Durbin-Watson:                   0.117
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              382.486
-Skew:                          -1.625   Prob(JB):                     8.79e-84
-Kurtosis:                       5.123   Cond. No.                         23.5
+Omnibus:                      262.132   Durbin-Watson:                   0.117
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              693.803
+Skew:                          -1.861   Prob(JB):                    2.20e-151
+Kurtosis:                       5.966   Cond. No.                         21.6
 ==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
 [H4a, H4b] Lĩnh vực tác động lên Niềm tin:
-- β_Subj = -0.009, p = 0.867
+- β_Subj = -0.008, p = 0.849
 => KHÔNG ỦNG HỘ H4a & H4b (p > 0.05).
 
 [H5a, H5b] Am hiểu AI điều tiết Rủi ro và Niềm tin (Risk x Lit):
-- β_Risk:Lit = 0.025, p = 0.783
+- β_Risk:Lit = 0.021, p = 0.771
 => KHÔNG ỦNG HỘ H5a & H5b.
 
 [H7] Am hiểu AI điều tiết Tính chủ quan và Niềm tin (Subj x Lit):
-- β_Subj:Lit = 0.025, p = 0.783
+- β_Subj:Lit = 0.021, p = 0.771
 => KHÔNG ỦNG HỘ H7.
 
 [H10] Rủi ro khuếch đại tác động Chủ quan lên Niềm tin (Risk x Subj):
-- β_Risk:Subj = -0.004, p = 0.902
+- β_Risk:Subj = -0.003, p = 0.924
 => KHÔNG ỦNG HỘ H10.
 
 2. MÔ HÌNH LOGIT (DV: WOA - Chọn Con người)
                            Logit Regression Results                           
 ==============================================================================
-Dep. Variable:                    WOA   No. Observations:                  609
-Model:                          Logit   Df Residuals:                      601
+Dep. Variable:                    WOA   No. Observations:                  735
+Model:                          Logit   Df Residuals:                      727
 Method:                           MLE   Df Model:                            7
-Date:                Sat, 21 Feb 2026   Pseudo R-squ.:                 0.02580
-Time:                        16:12:56   Log-Likelihood:                -411.00
-converged:                       True   LL-Null:                       -421.89
-Covariance Type:            nonrobust   LLR p-value:                  0.002780
+Date:                Sun, 22 Feb 2026   Pseudo R-squ.:                 0.02817
+Time:                        14:29:02   Log-Likelihood:                -491.77
+converged:                       True   LL-Null:                       -506.03
+Covariance Type:            nonrobust   LLR p-value:                 0.0001774
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept      1.3131      0.415      3.165      0.002       0.500       2.126
-Risk          -1.0144      0.298     -3.403      0.001      -1.599      -0.430
-Subj          -0.7023      0.239     -2.939      0.003      -1.171      -0.234
-Info          -0.3908      0.239     -1.636      0.102      -0.859       0.077
-Lit_Norm       0.2264      0.480      0.471      0.638      -0.715       1.168
-Trust_Norm    -0.9368      0.399     -2.348      0.019      -1.719      -0.155
-Risk:Subj      0.7814      0.331      2.358      0.018       0.132       1.431
-Risk:Info      0.8352      0.331      2.521      0.012       0.186       1.485
+Intercept      1.4384      0.391      3.677      0.000       0.672       2.205
+Risk          -1.0279      0.271     -3.786      0.000      -1.560      -0.496
+Subj          -0.6923      0.218     -3.179      0.001      -1.119      -0.265
+Info          -0.4328      0.218     -1.987      0.047      -0.860      -0.006
+Lit_Norm       0.2027      0.404      0.501      0.616      -0.590       0.995
+Trust_Norm    -1.1803      0.389     -3.032      0.002      -1.943      -0.417
+Risk:Subj      0.8034      0.303      2.650      0.008       0.209       1.398
+Risk:Info      0.8087      0.303      2.667      0.008       0.214       1.403
 ==============================================================================
 
 [H2] Cơ chế Niềm tin (Trust) quyết định Hành vi:
-- β_Trust = -0.937, p = 0.019
+- β_Trust = -1.180, p = 0.002
 => ỦNG HỘ H2: Tin AI tăng -> Tỷ lệ chọn Con người giảm.
 
 [H3] Rủi ro khuếch đại mâu thuẫn Chủ quan (Risk x Subj):
-- β_Risk:Subj = 0.781, p = 0.018
+- β_Risk:Subj = 0.803, p = 0.008
 => ỦNG HỘ H3: Rủi ro cao + Chủ quan -> Càng bỏ chạy về phía Con người.
 
 [H6] Tải lượng thông tin (Info Load) tác động lên Hành vi:
-- β_Info = -0.391, p = 0.102
-=> KHÔNG ỦNG HỘ H6.
+- β_Info = -0.433, p = 0.047
+=> ỦNG HỘ H6: Quá tải thông tin -> Giao phó cho AI (Giảm chọn người).
 
 [H8] Tải lượng thông tin suy yếu Rủi ro (Risk x Info):
-- β_Risk:Info = 0.835, p = 0.012
+- β_Risk:Info = 0.809, p = 0.008
 => KHÔNG ỦNG HỘ H8.
 
 [H9] Niềm tin là biến trung gian (Mediation):
