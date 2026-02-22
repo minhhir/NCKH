@@ -7,7 +7,7 @@ SURVEY_FILE = "Form nghiên cứu.csv"
 METADATA_FILE = "Ac_Results_Final.xlsx"
 OUTPUT_FILE = "final_data.csv"
 
-def parse_woa(text):
+def parse_phuman(text):
     if pd.isna(text): return None
     text_lower = str(text).lower()
     if 'lời khuyên ai' in text_lower or 'lời khuyên của ai' in text_lower: return 0.0
@@ -23,7 +23,6 @@ def get_scenario_attributes(idx):
     return risk, subj, info
 
 def preprocess_data(csv_file):
-    print("--- [1/3] Đang tiền xử lý (Đồng bộ D_total và AC_Label) ---")
     ac_dict = {}
 
     meta_path = METADATA_FILE
@@ -55,13 +54,11 @@ def preprocess_data(csv_file):
     scenario_cols = df.columns[5:21]
 
     for user_id, row in df.iterrows():
-        try:
-            lit_text = str(row.iloc[3])
-            match = re.search(r'(\d+)', lit_text)
-            lit_raw = int(match.group(1)) if match else 3
-        except:
-            lit_raw = 3
-        lit_norm = (lit_raw - 1) / 4.0
+        # Xử lý Literacy giữ nguyên thang 1-5
+
+        lit_text = str(row.iloc[3])
+        match = re.search(r'(\d+)', lit_text)
+        lit_raw = int(match.group(1)) if match else 3
 
         try:
             trust_raw = float(row.iloc[4])
@@ -70,8 +67,8 @@ def preprocess_data(csv_file):
             trust_norm = 0.5
 
         for idx, col_name in enumerate(scenario_cols):
-            woa = parse_woa(row[col_name])
-            if woa is None: continue
+            p_human = parse_phuman(row[col_name])
+            if p_human is None: continue
 
             risk, subj, info = get_scenario_attributes(idx)
             ac_info = ac_dict.get(idx, {'AC_Label': 1.0, 'D_total': 0.5})
@@ -81,15 +78,15 @@ def preprocess_data(csv_file):
                 'Scenario_ID': idx,
                 'AC_Label': ac_info['AC_Label'],
                 'D_total': ac_info['D_total'],
-                'WOA': woa,
+                'P_human': p_human,      # ĐÃ ĐỔI TÊN
                 'Risk': risk,
                 'Subj': subj,
                 'Info': info,
-                'Lit_Norm': lit_norm,
+                'Lit': lit_raw,          # ĐÃ GIỮ NGUYÊN 1-5
                 'Trust_Norm': trust_norm
             })
 
     clean_df = pd.DataFrame(long_data)
     clean_df.to_csv(OUTPUT_FILE, index=False)
-    print(f"-> Hoàn tất! Đã trích xuất và chuẩn hóa toán học thành công.")
+    print(f"done")
     return clean_df
