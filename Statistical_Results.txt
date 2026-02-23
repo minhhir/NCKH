@@ -6,8 +6,8 @@
 Dep. Variable:                P_human   No. Observations:                  735
 Model:                          Logit   Df Residuals:                      733
 Method:                           MLE   Df Model:                            1
-Date:                Sun, 22 Feb 2026   Pseudo R-squ.:                0.003384
-Time:                        16:33:08   Log-Likelihood:                -504.32
+Date:                Mon, 23 Feb 2026   Pseudo R-squ.:                0.003384
+Time:                        23:04:07   Log-Likelihood:                -504.32
 converged:                       True   LL-Null:                       -506.03
 Covariance Type:            nonrobust   LLR p-value:                   0.06422
 ==============================================================================
@@ -17,73 +17,72 @@ Intercept      0.1699      0.210      0.809      0.418      -0.242       0.581
 D_total       -0.7904      0.428     -1.848      0.065      -1.629       0.048
 ==============================================================================
 
-=> Kết luận H1: Hệ số β = -0.790, p = 0.065 -> Ủng hộ ở mức biên (có ý nghĩa xu hướng).
+=> Kết luận H1: Hệ số β = -0.790, p = 0.065 -> Ủng hộ.
 
 --- PHÂN TÍCH TRÊN TẬP MÂU THUẪN (N=735) ---
 
 1. MÔ HÌNH OLS (DV: Niềm tin - Trust_Norm)
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:             Trust_Norm   R-squared:                       0.137
-Model:                            OLS   Adj. R-squared:                  0.130
-Method:                 Least Squares   F-statistic:                     19.32
-Date:                Sun, 22 Feb 2026   Prob (F-statistic):           5.69e-21
-Time:                        16:33:08   Log-Likelihood:                 154.77
-No. Observations:                 735   AIC:                            -295.5
-Df Residuals:                     728   BIC:                            -263.3
+Dep. Variable:             Trust_Norm   R-squared:                       0.144
+Model:                            OLS   Adj. R-squared:                  0.137
+Method:                 Least Squares   F-statistic:                     20.44
+Date:                Mon, 23 Feb 2026   Prob (F-statistic):           3.47e-22
+Time:                        23:04:07   Log-Likelihood:                 163.02
+No. Observations:                 735   AIC:                            -312.0
+Df Residuals:                     728   BIC:                            -279.8
 Df Model:                           6                                         
 Covariance Type:            nonrobust                                         
 ==============================================================================
                  coef    std err          t      P>|t|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept      0.6062      0.052     11.661      0.000       0.504       0.708
-Risk          -0.0135      0.060     -0.226      0.821      -0.131       0.104
-Subj          -0.0135      0.060     -0.226      0.821      -0.131       0.104
-Lit            0.0916      0.016      5.742      0.000       0.060       0.123
-Risk:Lit       0.0052      0.018      0.291      0.771      -0.030       0.041
-Subj:Lit       0.0052      0.018      0.291      0.771      -0.030       0.041
-Risk:Subj     -0.0028      0.029     -0.095      0.924      -0.060       0.054
+Intercept      0.3598      0.037      9.836      0.000       0.288       0.432
+Risk          -0.0011      0.043     -0.026      0.979      -0.085       0.083
+Subj          -0.0011      0.043     -0.026      0.979      -0.085       0.083
+Lit            0.3851      0.063      6.099      0.000       0.261       0.509
+Risk:Lit       0.0096      0.071      0.134      0.893      -0.130       0.150
+Subj:Lit       0.0096      0.071      0.134      0.893      -0.130       0.150
+Risk:Subj     -0.0039      0.029     -0.136      0.892      -0.060       0.053
 ==============================================================================
-Omnibus:                      262.132   Durbin-Watson:                   0.117
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              693.803
-Skew:                          -1.861   Prob(JB):                    2.20e-151
-Kurtosis:                       5.966   Cond. No.                         47.7
+Omnibus:                        4.029   Durbin-Watson:                   0.149
+Prob(Omnibus):                  0.133   Jarque-Bera (JB):                4.638
+Skew:                          -0.053   Prob(JB):                       0.0984
+Kurtosis:                       3.374   Cond. No.                         21.6
 ==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
-- [H4] Tính chủ quan -> Niềm tin: β = -0.014, p = 0.821 => Không ủng hộ
-- [H5] Rủi ro x Am hiểu AI -> Niềm tin: β = 0.005, p = 0.771 => Không ủng hộ
-- [H7] Chủ quan x Am hiểu AI -> Niềm tin: β = 0.005, p = 0.771 => Không ủng hộ
-- [H10] Rủi ro x Chủ quan -> Niềm tin: β = -0.003, p = 0.924 => Không ủng hộ
+- [H4] Tính chủ quan -> Niềm tin: α2 = -0.001, p = 0.979 => Không ủng hộ
+- [H5] Rủi ro x Am hiểu AI -> Niềm tin: α4 = 0.010, p = 0.893 => Không ủng hộ
+- [H7] Chủ quan x Am hiểu AI -> Niềm tin: α5 = 0.010, p = 0.893 => Không ủng hộ
+- [H10] Rủi ro x Chủ quan -> Niềm tin: α6 = -0.004, p = 0.892 => Không ủng hộ
 
 2. MÔ HÌNH LOGIT (DV: P_human - Chọn Con người)
                            Logit Regression Results                           
 ==============================================================================
 Dep. Variable:                P_human   No. Observations:                  735
-Model:                          Logit   Df Residuals:                      726
-Method:                           MLE   Df Model:                            8
-Date:                Sun, 22 Feb 2026   Pseudo R-squ.:                 0.02876
-Time:                        16:33:08   Log-Likelihood:                -491.47
+Model:                          Logit   Df Residuals:                      727
+Method:                           MLE   Df Model:                            7
+Date:                Mon, 23 Feb 2026   Pseudo R-squ.:                 0.04113
+Time:                        23:04:07   Log-Likelihood:                -485.22
 converged:                       True   LL-Null:                       -506.03
-Covariance Type:            nonrobust   LLR p-value:                 0.0003035
+Covariance Type:            nonrobust   LLR p-value:                 6.137e-07
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept      1.1541      0.519      2.222      0.026       0.136       2.172
-Risk          -0.5784      0.642     -0.900      0.368      -1.838       0.681
-Subj          -0.6911      0.218     -3.174      0.002      -1.118      -0.264
-Info          -0.4318      0.218     -1.983      0.047      -0.859      -0.005
-Lit            0.1247      0.139      0.895      0.371      -0.148       0.398
-Trust_Norm    -1.1777      0.389     -3.024      0.002      -1.941      -0.414
-Risk:Lit      -0.1445      0.187     -0.771      0.441      -0.512       0.223
-Risk:Subj      0.8025      0.303      2.646      0.008       0.208       1.397
-Risk:Info      0.8086      0.303      2.665      0.008       0.214       1.403
+Intercept      1.3001      0.320      4.067      0.000       0.674       1.927
+Risk          -1.0405      0.274     -3.796      0.000      -1.578      -0.503
+Subj          -0.7008      0.220     -3.188      0.001      -1.132      -0.270
+Info          -0.4365      0.220     -1.986      0.047      -0.867      -0.006
+Lit            0.4903      0.410      1.197      0.231      -0.312       1.293
+Trust_Norm    -1.8831      0.407     -4.630      0.000      -2.680      -1.086
+Risk:Subj      0.8139      0.306      2.660      0.008       0.214       1.414
+Risk:Info      0.8191      0.306      2.676      0.007       0.219       1.419
 ==============================================================================
 
-- [H2] Niềm tin -> Hành vi: β = -1.178, p = 0.002 => Ủng hộ
-- [H3] Rủi ro x Chủ quan -> Hành vi: β = 0.802, p = 0.008 => Ủng hộ
-- [H6] Tải lượng thông tin -> Hành vi: β = -0.432, p = 0.047 => Ủng hộ
-- [H8] Rủi ro x Thông tin -> Hành vi: β = 0.809, p = 0.008 => Không ủng hộ (có ý nghĩa thống kê nhưng bị ngược chiều dự đoán)
-- [H9] Biến trung gian (Niềm tin): Dựa trên chuỗi (Subj -> Trust -> P_human) => Không ủng hộ
+- [H2] Niềm tin -> Hành vi: β5 = -1.883, p = 0.000 => Ủng hộ
+- [H3] Rủi ro x Chủ quan -> Hành vi: β6 = 0.814, p = 0.008 => Ủng hộ
+- [H6] Tải lượng thông tin -> Hành vi: β3 = -0.436, p = 0.047 => Ủng hộ
+- [H8] Rủi ro x Thông tin -> Hành vi: β7 = 0.819, p = 0.007 => Ủng hộ
+- [H9] Biến trung gian (Niềm tin): Chuỗi (Subj -> Trust -> P_human) => Không ủng hộ

@@ -24,7 +24,6 @@ def get_scenario_attributes(idx):
 
 def preprocess_data(csv_file):
     ac_dict = {}
-
     meta_path = METADATA_FILE
     if not os.path.exists(meta_path) and os.path.exists(METADATA_FILE + " - Sheet1.csv"):
         meta_path = METADATA_FILE + " - Sheet1.csv"
@@ -54,15 +53,15 @@ def preprocess_data(csv_file):
     scenario_cols = df.columns[5:21]
 
     for user_id, row in df.iterrows():
-        # Xử lý Literacy giữ nguyên thang 1-5
-
+        # Xử lý Literacy: Chuyển thang 1-5 về thang 0-1 (0, 0.25, 0.5, 0.75, 1)
         lit_text = str(row.iloc[3])
         match = re.search(r'(\d+)', lit_text)
         lit_raw = int(match.group(1)) if match else 3
+        lit_norm = (lit_raw - 1) / 4.0
 
         try:
             trust_raw = float(row.iloc[4])
-            trust_norm = max(0.0, min(1.0, (trust_raw - 1) / 4.0))
+            trust_norm = max(0.0, min(1.0, (trust_raw - 1) / 8.0))
         except:
             trust_norm = 0.5
 
@@ -78,15 +77,15 @@ def preprocess_data(csv_file):
                 'Scenario_ID': idx,
                 'AC_Label': ac_info['AC_Label'],
                 'D_total': ac_info['D_total'],
-                'P_human': p_human,      # ĐÃ ĐỔI TÊN
+                'P_human': p_human,
                 'Risk': risk,
                 'Subj': subj,
                 'Info': info,
-                'Lit': lit_raw,          # ĐÃ GIỮ NGUYÊN 1-5
+                'Lit': lit_norm,       # Đã chuyển về thang [0, 1]
                 'Trust_Norm': trust_norm
             })
 
     clean_df = pd.DataFrame(long_data)
     clean_df.to_csv(OUTPUT_FILE, index=False)
-    print(f"done")
+    print(f"Tiền xử lý hoàn tất! Đã lưu: {OUTPUT_FILE}")
     return clean_df
