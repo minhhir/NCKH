@@ -5,7 +5,7 @@ INPUT_FILE = "final_data.csv"
 OUTPUT_FILE = "synthetic_data_hypothesis_optimized.csv"
 RANDOM_SEED = 42
 ALPHA_KEEP_ORIGINAL = 0.1
-TARGET_USER_COUNT = 200
+TARGET_USER_COUNT = 203
 LIT_LEVELS = np.array([0.0, 0.25, 0.5, 0.75, 1.0])
 TRUST_LEVELS = np.array([0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0])
 
