@@ -15,30 +15,30 @@ Method:                        Generalized   Min. cluster size:                 
 Family:                           Binomial   Mean cluster size:                16.0
 Dependence structure:         Independence   Num. iterations:                     2
 Date:                     Wed, 25 Feb 2026   Scale:                           1.000
-Covariance type:                    robust   Time:                         15:34:04
+Covariance type:                    robust   Time:                         16:05:47
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept     -0.7841      0.176     -4.458      0.000      -1.129      -0.439
-D_total       -0.9311      0.254     -3.668      0.000      -1.429      -0.434
-Info          -0.6502      0.072     -9.058      0.000      -0.791      -0.510
-Risk           1.0198      0.135      7.562      0.000       0.756       1.284
-Subj           0.5132      0.144      3.574      0.000       0.232       0.795
-Lit            0.3743      0.201      1.866      0.062      -0.019       0.767
-Risk:Lit      -0.0200      0.236     -0.085      0.932      -0.482       0.442
-Subj:Lit       0.3215      0.212      1.517      0.129      -0.094       0.737
-Trust_Norm     0.4937      0.131      3.768      0.000       0.237       0.750
+Intercept      0.2439      0.192      1.273      0.203      -0.132       0.619
+D_total       -0.2548      0.276     -0.924      0.356      -0.796       0.286
+Info           0.1205      0.074      1.627      0.104      -0.025       0.266
+Risk           0.2854      0.149      1.910      0.056      -0.008       0.578
+Subj          -0.0055      0.141     -0.039      0.969      -0.282       0.271
+Lit            0.9763      0.204      4.779      0.000       0.576       1.377
+Risk:Lit      -0.6691      0.245     -2.732      0.006      -1.149      -0.189
+Subj:Lit      -0.5272      0.211     -2.504      0.012      -0.940      -0.115
+Trust_Norm    -1.5750      0.116    -13.577      0.000      -1.802      -1.348
 ==============================================================================
-Skew:                          0.2177   Kurtosis:                      -1.5227
-Centered skew:                 0.1861   Centered kurtosis:             -1.3506
+Skew:                          0.2009   Kurtosis:                      -1.6916
+Centered skew:                 0.1831   Centered kurtosis:             -1.5045
 ==============================================================================
 
 --- KẾT LUẬN GIẢ THUYẾT ---
-[H1] Bối cảnh lời khuyên -> Hành vi: β = -0.9311, p = 0.0002 => Ủng hộ
-[H2] Tải lượng thông tin -> Hành vi: β = -0.6502, p = 0.0000 => Ủng hộ
-[H3] Mức độ rủi ro -> Hành vi: β = 1.0198, p = 0.0000 => Ủng hộ
-[H4] Lĩnh vực câu hỏi -> Hành vi: β = 0.5132, p = 0.0004 => Ủng hộ
-[H5] Am hiểu AI điều tiết Risk -> Hành vi: β = -0.0200, p = 0.9324 => Không ủng hộ
-[H6] Am hiểu AI điều tiết Subj -> Hành vi: β = 0.3215, p = 0.1292 => Không ủng hộ
-[H7] Mức độ tin cậy vào AI -> Hành vi chọn Con người: β = 0.4937, p = 0.0002 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
+[H1] Bối cảnh lời khuyên -> Hành vi: β = -0.2548, p = 0.3557 => Không ủng hộ
+[H2] Tải lượng thông tin -> Hành vi: β = 0.1205, p = 0.1037 => Không ủng hộ
+[H3] Mức độ rủi ro -> Hành vi: β = 0.2854, p = 0.0562 => Không ủng hộ
+[H4] Lĩnh vực câu hỏi -> Hành vi: β = -0.0055, p = 0.9689 => Không ủng hộ
+[H5] Am hiểu AI điều tiết Risk -> Hành vi: β = -0.6691, p = 0.0063 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
+[H6] Am hiểu AI điều tiết Subj -> Hành vi: β = -0.5272, p = 0.0123 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
+[H7] Mức độ tin cậy vào AI -> Hành vi chọn Con người: β = -1.5750, p = 0.0000 => Ủng hộ
 Ghi chú H7: vì DV là P_human (1 = chọn Con người), nếu Trust_Norm đo niềm tin vào AI thì dấu kỳ vọng hợp lý là âm.

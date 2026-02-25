@@ -15,28 +15,28 @@ Method:                        Generalized   Min. cluster size:                 
 Family:                           Binomial   Mean cluster size:                16.0
 Dependence structure:         Independence   Num. iterations:                     2
 Date:                     Wed, 25 Feb 2026   Scale:                           1.000
-Covariance type:                    robust   Time:                         15:34:04
+Covariance type:                    robust   Time:                         16:05:47
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept     -0.5369      0.162     -3.320      0.001      -0.854      -0.220
-D_total       -0.9263      0.252     -3.673      0.000      -1.421      -0.432
-Info          -0.6470      0.071     -9.089      0.000      -0.786      -0.507
-Risk           1.0124      0.133      7.587      0.000       0.751       1.274
-Subj           0.5099      0.143      3.575      0.000       0.230       0.789
-Lit            0.3546      0.205      1.730      0.084      -0.047       0.756
-Risk:Lit      -0.0155      0.234     -0.066      0.947      -0.474       0.443
-Subj:Lit       0.3216      0.211      1.527      0.127      -0.091       0.734
+Intercept     -0.4977      0.185     -2.695      0.007      -0.860      -0.136
+D_total       -0.2411      0.262     -0.922      0.357      -0.754       0.271
+Info           0.1142      0.070      1.628      0.104      -0.023       0.252
+Risk           0.2704      0.142      1.911      0.056      -0.007       0.548
+Subj          -0.0039      0.133     -0.029      0.977      -0.265       0.257
+Lit            0.9627      0.222      4.330      0.000       0.527       1.399
+Risk:Lit      -0.6356      0.233     -2.729      0.006      -1.092      -0.179
+Subj:Lit      -0.5039      0.200     -2.520      0.012      -0.896      -0.112
 ==============================================================================
-Skew:                          0.2199   Kurtosis:                      -1.5409
-Centered skew:                 0.1857   Centered kurtosis:             -1.3533
+Skew:                          0.2188   Kurtosis:                      -1.8904
+Centered skew:                 0.1824   Centered kurtosis:             -1.5060
 ==============================================================================
 
 --- KẾT LUẬN GIẢ THUYẾT ---
-[H1] Bối cảnh lời khuyên -> Hành vi: β = -0.9263, p = 0.0002 => Ủng hộ
-[H2] Tải lượng thông tin -> Hành vi: β = -0.6470, p = 0.0000 => Ủng hộ
-[H3] Mức độ rủi ro -> Hành vi: β = 1.0124, p = 0.0000 => Ủng hộ
-[H4] Lĩnh vực câu hỏi -> Hành vi: β = 0.5099, p = 0.0004 => Ủng hộ
-[H5] Am hiểu AI điều tiết Risk -> Hành vi: β = -0.0155, p = 0.9471 => Không ủng hộ
-[H6] Am hiểu AI điều tiết Subj -> Hành vi: β = 0.3216, p = 0.1267 => Không ủng hộ
+[H1] Bối cảnh lời khuyên -> Hành vi: β = -0.2411, p = 0.3565 => Không ủng hộ
+[H2] Tải lượng thông tin -> Hành vi: β = 0.1142, p = 0.1036 => Không ủng hộ
+[H3] Mức độ rủi ro -> Hành vi: β = 0.2704, p = 0.0561 => Không ủng hộ
+[H4] Lĩnh vực câu hỏi -> Hành vi: β = -0.0039, p = 0.9766 => Không ủng hộ
+[H5] Am hiểu AI điều tiết Risk -> Hành vi: β = -0.6356, p = 0.0064 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
+[H6] Am hiểu AI điều tiết Subj -> Hành vi: β = -0.5039, p = 0.0117 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
 [H7] Không kiểm định trong chế độ KHÔNG TRUST.
