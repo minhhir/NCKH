@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "generate synthetic responses",
+			"type": "shell",
+			"command": ".venv\\Scripts\\python.exe",
+			"args": [
+				"create_both_responses.py"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "compare response files",
+			"type": "shell",
+			"command": ".venv\\Scripts\\python.exe",
+			"args": [
+				"compare_response_files.py"
+			],
+			"isBackground": false
+		}
+	]
+}

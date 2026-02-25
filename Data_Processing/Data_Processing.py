@@ -1,19 +1,55 @@
 import pandas as pd
 import numpy as np
 import re
+import unicodedata
 import os
 
 SURVEY_FILE = "Form nghiên cứu.csv"
 METADATA_FILE = "Ac_Results_Final.xlsx"
 OUTPUT_FILE = "final_data.csv"
 
-def parse_phuman(text):
-    if pd.isna(text): return None
-    text_lower = str(text).lower()
-    if 'lời khuyên ai' in text_lower or 'lời khuyên của ai' in text_lower: return 0.0
-    if 'lời khuyên con người' in text_lower or 'lời khuyên của con người' in text_lower: return 1.0
-    if 'ai' in text_lower and 'con người' not in text_lower: return 0.0
-    if 'con người' in text_lower: return 1.0
+SCENARIO_OPTION_MAP = {
+    # Scenario_ID 1: Paint purchase choice has no AI/Human label in the form.
+    1: {
+        "ai_keywords": [
+            "dat ship", "giao hang", "hoa toc", "5 lit", "5l", "ship"
+        ],
+        "human_keywords": [
+            "tu di mua", "chay xe", "2 lon", "2 lo", "mua 2"
+        ]
+    }
+}
+
+
+def _normalize_text(text):
+    if pd.isna(text):
+        return ""
+    text_lower = str(text).lower().strip()
+    text_norm = unicodedata.normalize("NFD", text_lower)
+    return "".join(ch for ch in text_norm if unicodedata.category(ch) != "Mn")
+
+
+def parse_phuman(text, scenario_idx=None):
+    if pd.isna(text):
+        return None
+    text_norm = _normalize_text(text)
+
+    if "loi khuyen ai" in text_norm or "loi khuyen cua ai" in text_norm:
+        return 0.0
+    if "loi khuyen con nguoi" in text_norm or "loi khuyen cua con nguoi" in text_norm:
+        return 1.0
+    if re.search(r"\bai\b", text_norm) and "con nguoi" not in text_norm:
+        return 0.0
+    if re.search(r"\bcon nguoi\b", text_norm):
+        return 1.0
+
+    mapping = SCENARIO_OPTION_MAP.get(scenario_idx)
+    if mapping:
+        if any(keyword in text_norm for keyword in mapping["ai_keywords"]):
+            return 0.0
+        if any(keyword in text_norm for keyword in mapping["human_keywords"]):
+            return 1.0
+
     return None
 
 def get_scenario_attributes(idx):
@@ -51,6 +87,7 @@ def preprocess_data(csv_file):
 
     long_data = []
     scenario_cols = df.columns[5:21]
+    unmapped_by_scenario = {idx: 0 for idx in range(len(scenario_cols))}
 
     for user_id, row in df.iterrows():
         # Xử lý Literacy: Chuyển thang 1-5 về thang 0-1 (0, 0.25, 0.5, 0.75, 1)
@@ -66,8 +103,10 @@ def preprocess_data(csv_file):
             trust_norm = 0.5
 
         for idx, col_name in enumerate(scenario_cols):
-            p_human = parse_phuman(row[col_name])
-            if p_human is None: continue
+            p_human = parse_phuman(row[col_name], scenario_idx=idx)
+            if p_human is None:
+                unmapped_by_scenario[idx] += 1
+                continue
 
             risk, subj, info = get_scenario_attributes(idx)
             ac_info = ac_dict.get(idx, {'AC_Label': 1.0, 'D_total': 0.5})
@@ -88,4 +127,7 @@ def preprocess_data(csv_file):
     clean_df = pd.DataFrame(long_data)
     clean_df.to_csv(OUTPUT_FILE, index=False)
     print(f"Tiền xử lý hoàn tất! Đã lưu: {OUTPUT_FILE}")
+    unmapped = {k: v for k, v in unmapped_by_scenario.items() if v}
+    if unmapped:
+        print("Unmapped responses by Scenario_ID:", unmapped)
     return clean_df
