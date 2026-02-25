@@ -1,0 +1,42 @@
+=== BÁO CÁO KIỂM ĐỊNH MÔ HÌNH HIỆN TẠI (H1-H7) - KHÔNG TRUST ===
+
+Số quan sát đưa vào mô hình: N = 735
+Số người trả lời: 47
+Cảnh báo: AC_Label không có biến thiên (toàn bộ cùng 1 giá trị), không thể kiểm định theo biến nhị phân Consensus/Conflict.
+Công thức mô hình: P_human ~ D_total + Info + Risk + Subj + Lit + Risk:Lit + Subj:Lit
+
+Loại mô hình: GEE-Binomial (cluster theo User_ID)
+                               GEE Regression Results                              
+===================================================================================
+Dep. Variable:                     P_human   No. Observations:                  735
+Model:                                 GEE   No. clusters:                       47
+Method:                        Generalized   Min. cluster size:                  15
+                      Estimating Equations   Max. cluster size:                  16
+Family:                           Binomial   Mean cluster size:                15.6
+Dependence structure:         Independence   Num. iterations:                     2
+Date:                     Wed, 25 Feb 2026   Scale:                           1.000
+Covariance type:                    robust   Time:                         12:36:12
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -0.2863      0.547     -0.523      0.601      -1.358       0.785
+D_total       -2.3293      0.633     -3.680      0.000      -3.570      -1.089
+Info          -0.5650      0.188     -3.002      0.003      -0.934      -0.196
+Risk           1.6172      0.454      3.564      0.000       0.728       2.507
+Subj           1.8022      0.405      4.453      0.000       1.009       2.595
+Lit           -0.4177      0.844     -0.495      0.620      -2.071       1.236
+Risk:Lit       1.2576      0.850      1.479      0.139      -0.409       2.924
+Subj:Lit       1.5564      0.724      2.148      0.032       0.136       2.976
+==============================================================================
+Skew:                         -0.1991   Kurtosis:                      -0.5900
+Centered skew:                -0.2040   Centered kurtosis:             -0.5473
+==============================================================================
+
+--- KẾT LUẬN GIẢ THUYẾT ---
+[H1] Bối cảnh lời khuyên -> Hành vi: β = -2.3293, p = 0.0002 => Ủng hộ
+[H2] Tải lượng thông tin -> Hành vi: β = -0.5650, p = 0.0027 => Ủng hộ
+[H3] Mức độ rủi ro -> Hành vi: β = 1.6172, p = 0.0004 => Ủng hộ
+[H4] Lĩnh vực câu hỏi -> Hành vi: β = 1.8022, p = 0.0000 => Ủng hộ
+[H5] Am hiểu AI điều tiết Risk -> Hành vi: β = 1.2576, p = 0.1390 => Không ủng hộ
+[H6] Am hiểu AI điều tiết Subj -> Hành vi: β = 1.5564, p = 0.0317 => Ủng hộ
+[H7] Không kiểm định trong chế độ KHÔNG TRUST.
