@@ -74,10 +74,10 @@ def run_analysis(df, include_trust=True, output_file="Statistical_Results.txt"):
         pvalues = fitted_model.pvalues
 
         checks = [
-            ("H1", "D_total", "negative", "Bối cảnh lời khuyên -> Hành vi"),
-            ("H2", "Info", "negative", "Tải lượng thông tin -> Hành vi"),
-            ("H3", "Risk", "positive", "Mức độ rủi ro -> Hành vi"),
-            ("H4", "Subj", "positive", "Lĩnh vực câu hỏi -> Hành vi"),
+            ("H1", "D_total", "negative", "Bối cảnh lời khuyên -> Chọn AI hơn"),
+            ("H2", "Info", "negative", "Thông tin chi tiết -> Chọn AI hơn (chuyên gia)"),
+            ("H3", "Risk", "negative", "Rủi ro cao -> Chọn AI hơn (chuyên gia)"),
+            ("H4", "Subj", "negative", "Chủ đề chủ quan -> Chọn AI hơn (dựa vào training)"),
             ("H5", "Risk:Lit", "positive", "Am hiểu AI điều tiết Risk -> Hành vi"),
             ("H6", "Subj:Lit", "positive", "Am hiểu AI điều tiết Subj -> Hành vi"),
         ]

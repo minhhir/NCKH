@@ -15,7 +15,7 @@ Method:                        Generalized   Min. cluster size:                 
 Family:                           Binomial   Mean cluster size:                16.0
 Dependence structure:         Independence   Num. iterations:                     2
 Date:                     Wed, 25 Feb 2026   Scale:                           1.000
-Covariance type:                    robust   Time:                         16:07:26
+Covariance type:                    robust   Time:                         16:12:48
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -34,10 +34,10 @@ Centered skew:                 0.2355   Centered kurtosis:             -1.5521
 ==============================================================================
 
 --- KẾT LUẬN GIẢ THUYẾT ---
-[H1] Bối cảnh lời khuyên -> Hành vi: β = -0.5867, p = 0.0311 => Ủng hộ
-[H2] Tải lượng thông tin -> Hành vi: β = -0.0366, p = 0.6267 => Không ủng hộ
-[H3] Mức độ rủi ro -> Hành vi: β = -0.4296, p = 0.0005 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
-[H4] Lĩnh vực câu hỏi -> Hành vi: β = -0.5138, p = 0.0006 => Không ủng hộ (có ý nghĩa nhưng ngược chiều giả thuyết)
+[H1] Bối cảnh lời khuyên -> Chọn AI hơn: β = -0.5867, p = 0.0311 => Ủng hộ
+[H2] Thông tin chi tiết -> Chọn AI hơn (chuyên gia): β = -0.0366, p = 0.6267 => Không ủng hộ
+[H3] Rủi ro cao -> Chọn AI hơn (chuyên gia): β = -0.4296, p = 0.0005 => Ủng hộ
+[H4] Chủ đề chủ quan -> Chọn AI hơn (dựa vào training): β = -0.5138, p = 0.0006 => Ủng hộ
 [H5] Am hiểu AI điều tiết Risk -> Hành vi: β = 0.6246, p = 0.0031 => Ủng hộ
 [H6] Am hiểu AI điều tiết Subj -> Hành vi: β = 0.6611, p = 0.0021 => Ủng hộ
 [H7] Mức độ tin cậy vào AI -> Hành vi chọn Con người: β = -0.9452, p = 0.0000 => Ủng hộ
