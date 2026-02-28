@@ -1,0 +1,41 @@
+=== BÁO CÁO KIỂM ĐỊNH MÔ HÌNH: TÁC ĐỘNG TRỰC TIẾP & ĐIỀU TIẾT ===
+
+Đã xuất Bảng Ma trận tương quan & VIF chuẩn học thuật ra file 'Correlation_VIF_Academic.csv'.
+Vui lòng mở file CSV này để copy vào báo cáo Word/Excel của bạn.
+
+--- MÔ HÌNH: GEE BINOMIAL DỰ BÁO HÀNH VI (DV) ---
+                               GEE Regression Results                              
+===================================================================================
+Dep. Variable:                          DV   No. Observations:                 5145
+Model:                                 GEE   No. clusters:                      329
+Method:                        Generalized   Min. cluster size:                  15
+                      Estimating Equations   Max. cluster size:                  16
+Family:                           Binomial   Mean cluster size:                15.6
+Dependence structure:         Exchangeable   Num. iterations:                     6
+Date:                     Thu, 26 Feb 2026   Scale:                           1.000
+Covariance type:                    robust   Time:                         21:44:51
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -1.0713      0.257     -4.166      0.000      -1.575      -0.567
+Ctx           -0.6603      0.157     -4.209      0.000      -0.968      -0.353
+Info          -0.0287      0.052     -0.556      0.578      -0.130       0.073
+Risk           0.1378      0.107      1.285      0.199      -0.072       0.348
+Subj           0.1090      0.154      0.707      0.479      -0.193       0.411
+Trust          1.8293      0.292      6.262      0.000       1.257       2.402
+AILit          1.0834      0.271      4.000      0.000       0.553       1.614
+Risk:AILit    -0.6600      0.168     -3.918      0.000      -0.990      -0.330
+Subj:AILit    -0.4858      0.257     -1.891      0.059      -0.989       0.018
+==============================================================================
+Skew:                          0.1960   Kurtosis:                      -1.8083
+Centered skew:                 0.2094   Centered kurtosis:             -1.3376
+==============================================================================
+
+--- KẾT LUẬN GIẢ THUYẾT ---
+[H1] Tác động của Bối cảnh (Ctx): β1 = -0.660, p = 0.000 => Ủng hộ
+[H2] Tác động của Tải lượng (Info): β2 = -0.029, p = 0.578 => Không ủng hộ
+[H3] Tác động của Mức độ rủi ro (Risk): β3 = 0.138, p = 0.199 => Không ủng hộ
+[H4] Tác động của Tính chủ quan (Subj): β4 = 0.109, p = 0.479 => Không ủng hộ
+[H7] Tác động của Niềm tin (Trust): β5 = 1.829, p = 0.000 => Ủng hộ
+[H5] Am hiểu AI điều tiết Rủi ro (Risk x AILit): β7 = -0.660, p = 0.000 => Không ủng hộ
+[H6] Am hiểu AI điều tiết Lĩnh vực (Subj x AILit): β8 = -0.486, p = 0.059 => Không ủng hộ
