@@ -7,8 +7,7 @@ SURVEY_FILE = "Form nghiên cứu.csv"
 METADATA_FILE = "Ac_Results_Final.xlsx"
 OUTPUT_FILE = "final_data.csv"
 
-
-def parse_phuman(text):
+def parse_dv(text):
     if pd.isna(text): return None
     text_lower = str(text).lower()
     if 'lời khuyên ai' in text_lower or 'lời khuyên của ai' in text_lower: return 0.0
@@ -17,13 +16,11 @@ def parse_phuman(text):
     if 'con người' in text_lower: return 1.0
     return None
 
-
 def get_scenario_attributes(idx):
     risk = 0.0 if idx < 8 else 1.0
     subj = 0.0 if (0 <= idx <= 3) or (8 <= idx <= 11) else 1.0
-    infoload = 0.0 if (idx % 4) < 2 else 1.0
-    return risk, subj, infoload
-
+    info = 0.0 if (idx % 4) < 2 else 1.0
+    return risk, subj, info
 
 def preprocess_data(csv_file):
     ac_dict = {}
@@ -32,16 +29,12 @@ def preprocess_data(csv_file):
             meta_df = pd.read_excel(METADATA_FILE)
         else:
             meta_path = METADATA_FILE + " - Sheet1.csv"
-            try:
-                meta_df = pd.read_csv(meta_path, encoding='utf-8-sig')
-            except:
-                meta_df = pd.read_csv(meta_path, encoding='latin1')
+            meta_df = pd.read_csv(meta_path, encoding='utf-8-sig')
 
         for _, row in meta_df.iterrows():
             idx = int(row['ID']) - 1
             ac_dict[idx] = {
-                'AC_Label': float(row['AC_Label']) if pd.notna(row['AC_Label']) else 1.0,
-                'D_total': float(row['D_total']) if pd.notna(row['D_total']) else 0.5
+                'Ctx': float(row['D_total']) if pd.notna(row['D_total']) else 0.5  # Đổi tên thành Ctx
             }
     except Exception as e:
         print(f"Lỗi đọc Metadata: {e}")
@@ -56,13 +49,13 @@ def preprocess_data(csv_file):
     scenario_cols = df.columns[5:21]
 
     for user_id, row in df.iterrows():
-        # Xử lý Literacy (Lit_Norm -> gọi là Lit)
+        # Xử lý Literacy (Lit_Norm -> gọi là AILit)
         lit_text = str(row.iloc[3])
         match = re.search(r'(\d+)', lit_text)
         lit_raw = int(match.group(1)) if match else 3
-        lit_norm = (lit_raw - 1) / 4.0
+        ailit_norm = (lit_raw - 1) / 4.0
 
-        # Xử lý Trust (Trust_Norm -> đổi tên thành Trust)
+        # Xử lý Trust
         try:
             trust_raw = float(row.iloc[4])
             trust_ai_norm = max(0.0, min(1.0, (trust_raw - 1) / 8.0))
@@ -71,22 +64,22 @@ def preprocess_data(csv_file):
             trust_final = 0.5
 
         for idx, col_name in enumerate(scenario_cols):
-            p_human = parse_phuman(row[col_name])
-            if p_human is None: continue
+            dv_val = parse_dv(row[col_name])
+            if dv_val is None: continue
 
-            risk, subj, infoload = get_scenario_attributes(idx)
-            ac_info = ac_dict.get(idx, {'AC_Label': 1.0, 'D_total': 0.5})
+            risk, subj, info = get_scenario_attributes(idx)
+            ac_info = ac_dict.get(idx, {'Ctx': 0.5})
 
             long_data.append({
                 'User_ID': user_id,
                 'Scenario_ID': idx,
-                'Risk': risk,
-                'Subj': subj,
-                'InfoLoad': infoload,
-                'Lit': lit_norm,
-                'Trust': trust_final,  # Tên biến mới
-                'D_total': ac_info['D_total'],
-                'P_human': p_human
+                'Ctx': ac_info['Ctx'],     # Bối cảnh lời khuyên
+                'Risk': risk,              # Rủi ro
+                'Subj': subj,              # Tính chủ quan
+                'Info': info,              # Tải lượng thông tin
+                'AILit': ailit_norm,       # Am hiểu AI
+                'Trust': trust_final,      # Niềm tin
+                'DV': dv_val               # Hành vi chấp nhận (P_human cũ)
             })
 
     final_df = pd.DataFrame(long_data)
